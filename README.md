@@ -1,2 +1,2 @@
-# fake-news-detector
+# Fake News Detector
 A fake news detector
