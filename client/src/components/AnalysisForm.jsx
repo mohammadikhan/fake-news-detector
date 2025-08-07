@@ -5,7 +5,7 @@ const AnalysisForm = () => {
     return(
         <>
         <div className="m-8">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
                 <Card className="lg:col-span-2" title="Article Analysis">
                     <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
                         Paste an article or URL to analyze its credibility using AI-powered detection
