@@ -1,2 +1,2 @@
 # Fake News Detector
-A fake news detector
+An AI-powered Fake News Detector
