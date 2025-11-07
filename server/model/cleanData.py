@@ -9,17 +9,29 @@ from sklearn.model_selection import train_test_split
 from nltk.corpus import stopwords
 nltk.download('stopwords')
 
-stopWords = set(stopwords.words('english'))
+stopWords = set(stopwords.words('english')) - {
+    'no', 'not', 'nor', 'never', 'neither', 'nobody', 'nothing', 'nowhere',
+    'against', 'but', 'however', 'very', 'too', 'more', 'most', 'few', 'some'
+}
 
 def cleanData(text):
     if pd.isnull(text):
         return ""
     
     text = BeautifulSoup(text, "html.parser").get_text()
-    text = re.sub(r"http\S+", "", text)
-    text = re.sub(r"[^A-Za-z0-9(),!?\"'`\n]", " ", text) 
-    text = re.sub(r"\s+", " ", text).strip()
-    text = " ".join([word for word in text.split() if word.lower() not in stopWords])
+    text = re.sub(r"http\S+|www\.\S+", "", text)
+    text.lower()
+    text = re.sub(r'\s+', ' ', text)
+    text = re.sub(r"[^a-z0-9\s.,!?'-]", "", text)
+    text = re.sub(r'\s+([.,!?])', r'\1', text)
+
+    words = text.split()
+    words = [w for w in words if len(w) > 1 or w in {'i', 'a'}]
+    words = [word for word in words if word not in stopWords]
+
+    text = " ".join(words)
+    text = text.strip()
+
     return text
 
 def kaggleNewsData():
@@ -30,8 +42,10 @@ def kaggleNewsData():
     fakeNews["label"] = 0
     df = pd.concat([realNews, fakeNews])
 
-    df["text"] = df["title"].fillna("") + " " + df["text"].fillna("")
+    df["text"] = (df["title"].fillna("").astype(str) + ". " + df["text"].fillna("").astype(str))
     df["text"] = df["text"].apply(cleanData)
+
+    df = df[df["text"].str.strip().str.len() > 10]
 
     return df[["text", "label"]]
 
@@ -47,26 +61,31 @@ def liarData():
         mappedLabel = {
             "true": 1,
             "mostly-true": 1,
-            "half-true": 1,
+            "half-true": None,
             "barely-true": 0,
             "false": 0,
             "pants-fire": 0
         }
         
-        df["text"] = df["text"].apply(cleanData)
         df["label"] = df["label"].map(mappedLabel)
+        df = df.dropna(subset=["label"])
+        df["text"] = df["text"].apply(cleanData)
+        df = df[df["text"].str.strip().str.len() > 5]
+
         allData.append(df)
 
-    return pd.concat(allData)
+    return pd.concat(allData, ignore_index=True)
         
 
 def welfakeData():
     df = pd.read_parquet("hf://datasets/davanstrien/WELFake/data/train-00000-of-00001-290868f0a36350c5.parquet")
 
     if "title" in df.columns:
-        df["text"] = df["title"].fillna("") + " " + df["text"].fillna("")
+        df["text"] = (df["title"].fillna("").astype(str) + ". " + df["text"].fillna("").astype(str))
 
     df["text"] = df["text"].apply(cleanData)
+
+    df = df[df["text"].str.strip().str.len() >= 10]
 
     return df[["text", "label"]]
 
@@ -82,10 +101,25 @@ def dataCombineAndSplit():
     combinedData = combinedData.dropna(subset=['text', 'label'])
     combinedData = combinedData[combinedData['text'].str.strip() != '']
 
+    # Remove duplicates
+    combinedData = combinedData.drop_duplicates(subset=['text'], keep='first')
+
+    # Convert labels to integers
+    combinedData['label'] = combinedData['label'].astype(int)
+
     print(f"Combined dataset: {len(combinedData)} samples")
     print(f"Label distribution:\n{combinedData['label'].value_counts()}")
 
     combinedData = shuffle(combinedData, random_state=42).reset_index(drop=True)
+
+    combinedData['text_length'] = combinedData['text'].str.split().str.len()
+    print(f"Text length statistics:")
+    print(combinedData['text_length'].describe())
+
+    maxLength = combinedData['text_length'].quantile(0.99)
+    print(f"Removing texts longer than {maxLength} words")
+    combinedData = combinedData[combinedData['text_length'] <= maxLength]
+    combinedData = combinedData.drop('text_length', axis=1)
 
     # Split Data
     X = combinedData['text']
@@ -112,7 +146,7 @@ def dataCombineAndSplit():
     print(f"Validation set: {len(X_val)} samples ({len(X_val)/len(combinedData)*100:.1f}%)")
     print(f"Test set: {len(X_test)} samples ({len(X_test)/len(combinedData)*100:.1f}%)")
     
-    # Check label distribution in each set
+    # Checking label distribution in each set
     print(f"\nLabel distribution in training set: ")
     print(f"Real news (1): {sum(y_train)} ({sum(y_train)/len(y_train)*100:.1f}%)")
     print(f"Fake news (0): {len(y_train) - sum(y_train)} ({(len(y_train) - sum(y_train))/len(y_train)*100:.1f}%)")
@@ -143,8 +177,6 @@ def saveSplits(X_train, X_val, X_test, y_train, y_val, y_test, outputDir="../dat
     print(f"- train.csv: {len(trainDf)} samples")
     print(f"- validation.csv: {len(valDf)} samples")
     print(f"- test.csv: {len(testDf)} samples")
-
-
 
 def main():
     
