@@ -3,7 +3,13 @@ An AI-powered Fake News Detector
 
 ## Features
 
-## Architectures and Tech Stack
+## Architecture and Tech Stack
+- Backend: Node.js (Express.js)  
+- AI Models: Transformer Models (RoBERTa) 
+- Frontend: React.js  
+- Databases: MongoDB 
+- Datasets: LIAR, Kaggle Fake News, WELFake
+- DevOps: Docker (containerization) AWS (Deployment)
 
 
 ## Installation
