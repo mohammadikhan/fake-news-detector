@@ -1,4 +1,4 @@
-# Fake News Detector
+# VeriNews - AI Fake News Detector
 An AI-powered Fake News Detector
 
 ## Features
