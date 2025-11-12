@@ -8,7 +8,7 @@ An AI-powered Fake News Detector
 - AI Models: Transformer Models (RoBERTa) 
 - Frontend: React.js  
 - Databases: MongoDB 
-- Datasets: LIAR[https://www.kaggle.com/datasets/doanquanvietnamca/liar-dataset], Kaggle Fake News[https://www.kaggle.com/datasets/emineyetm/fake-news-detection-datasets], WELFake[https://huggingface.co/datasets/davanstrien/WELFake]
+- Datasets: [LIAR](https://www.kaggle.com/datasets/doanquanvietnamca/liar-dataset), [Kaggle Fake News](https://www.kaggle.com/datasets/emineyetm/fake-news-detection-datasets), [WELFake](https://huggingface.co/datasets/davanstrien/WELFake)
 - DevOps: Docker (containerization) AWS (Deployment)
 
 
