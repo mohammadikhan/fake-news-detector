@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt"
+import { sendVerificationEmail } from "../utils/sendMail.js";
 
 export const registerUser = async(req, res) => {
     
@@ -29,7 +30,9 @@ export const registerUser = async(req, res) => {
     
     });
 
-    await user.save()
+    await sendVerificationEmail(email, veriCode);
 
     res.json({message: "[SUCCESS]: Verification code was sent to the E-mail" })
 }
+
+// export const verifyUser = async
