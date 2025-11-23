@@ -61,3 +61,29 @@ export const verifyUser = async(req, res) => {
 
     res.json({message: "[SUCCESS]: E-Mail was successfully verified!" });
 };
+
+export const resendVerificationCode = async(req, res) => {
+
+    const {email} = req.body;
+
+    const user = await User.findOne({email});
+
+    if (!user) {
+        return res.status(400).json({error: "[ERROR]: User was not found" });
+    }
+
+    if (user.isVerified) {
+        return res.status(400).json({error: "[ERROR]: User is already verified" });
+    }
+
+    const newVeriCode = Math.floor(100000 + Math.random() * 90000).toString();
+
+    user.verificationCode = newVeriCode;
+    user.verificationCodeExpiry = Date.now() + 15 * 60 * 1000;
+
+    await user.save();
+
+    await sendVerificationEmail(email, newVeriCode);
+
+    return res.json({message: "[SUCCESS]: A new verification code has been sent to your E-Mail. Verify your account using the new code." })
+};
