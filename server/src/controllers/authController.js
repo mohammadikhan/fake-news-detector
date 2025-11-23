@@ -33,6 +33,31 @@ export const registerUser = async(req, res) => {
     await sendVerificationEmail(email, veriCode);
 
     res.json({message: "[SUCCESS]: Verification code was sent to the E-mail" })
-}
+};
 
-// export const verifyUser = async
+export const verifyUser = async(req, res) => {
+
+    const {email, code} = req.body;
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+        return res.status(400).json({error: "[ERROR]: User with the E-Mail does not exist" });
+    }
+
+    if (user.verificationCode !== code) {
+        return res.status(400).json({error: "[ERROR]: Invalid Code" });
+    }
+
+    if (Date.now() > user.verificationCodeExpiry) {
+        return res.status(400).json({error: "[ERROR]: Verification Code is expired" } );
+    }
+
+    user.isVerified = true;
+    user.verificationCode = undefined;
+    user.verificationCodeExpiry = undefined;
+
+    await user.save();
+
+    res.json({message: "[SUCCESS]: E-Mail was successfully verified!" });
+};
