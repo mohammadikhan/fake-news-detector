@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt"
 import { sendVerificationEmail } from "../utils/sendMail.js";
+import generateToken from "../utils/generateJWT.js";
 
 export const registerUser = async(req, res) => {
     
@@ -86,4 +87,31 @@ export const resendVerificationCode = async(req, res) => {
     await sendVerificationEmail(email, newVeriCode);
 
     return res.json({message: "[SUCCESS]: A new verification code has been sent to your E-Mail. Verify your account using the new code." })
+};
+
+export const login = async(req, res) => {
+    
+    const {email, passwordHash} = req.body;
+
+    const user = await User.findOne({email});
+
+    if (!user){
+        return res.status(400).json({error: "[ERROR]: User with that E-Mail was not found"});
+    }
+
+    const matchPasswords = await bcrypt.compare(passwordHash, user.passwordHash);
+
+    if (!matchPasswords){
+        return res.status(400).json({error: "[ERROR]: Invalid Password. Please try again"});
+    }
+
+    res.json({
+        token: generateToken(user._id),
+        user: {
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin,
+        },
+    });
 };
