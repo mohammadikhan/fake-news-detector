@@ -2,6 +2,8 @@ import User from "../models/User.js";
 import bcrypt from "bcrypt"
 import { sendVerificationEmail } from "../utils/sendMail.js";
 import generateToken from "../utils/generateJWT.js";
+import BlacklistToken from "../models/BlacklistToken.js";
+import RefreshToken from "../models/RefreshToken.js";
 
 export const registerUser = async(req, res) => {
     
@@ -118,9 +120,8 @@ export const login = async(req, res) => {
 
 export const logout = async(req, res) => {
     
-    try {
-
-    } catch (error) {
-        
-    }
+    res.status(200).json({
+        success: true,
+        data: {}
+    });
 };
