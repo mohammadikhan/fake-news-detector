@@ -1,9 +1,10 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt"
 import { sendVerificationEmail } from "../utils/sendMail.js";
-import generateToken from "../utils/generateJWT.js";
+import generateTokens from "../utils/generateJWT.js";
 import BlacklistToken from "../models/BlacklistToken.js";
 import RefreshToken from "../models/RefreshToken.js";
+import jwt from "jsonwebtoken";
 
 export const registerUser = async(req, res) => {
     
@@ -107,8 +108,22 @@ export const login = async(req, res) => {
         return res.status(400).json({error: "[ERROR]: Invalid Password. Please try again"});
     }
 
+    const { accessToken, refreshToken } = generateTokens(user._id);
+
+    try {
+        await RefreshToken.create({
+            token: refreshToken,
+            userId: user._id
+        })
+
+    } catch (dbError) {
+        console.error("[ERROR]: Failed to save Refresh Token: ", dbError);
+        return res.status(500).json({success: false, error: "[ERROR]: Session was not established"})
+    }
+
     res.json({
-        token: generateToken(user._id),
+        accessToken: accessToken,
+        refreshToken: refreshToken,
         user: {
             id: user._id,
             name: user.name,
@@ -119,9 +134,41 @@ export const login = async(req, res) => {
 };
 
 export const logout = async(req, res) => {
-    
-    res.status(200).json({
-        success: true,
-        data: {}
-    });
+
+    try {
+        const authHeader = req.headers.authorization;
+        const { refreshToken } = req.body;
+
+        // Here we blacklist the access token (from the header)
+        if (authHeader) {
+            const accessToken = authHeader.split(" ")[1];
+
+            // Decoding access token to get user ID and exiry time
+            const decoded = jwt.decode(accessToken);
+
+            // Blacklist only if the token is valid
+            if (decoded) {
+                await BlacklistToken.create({
+                    token: accessToken,
+                    userId: decoded.id,
+                    expiresAt: new Date(decoded.exp * 1000)
+                });
+            }
+        }
+
+        // Revoking the refresh token
+        if (refreshToken) {
+            await RefreshToken.deleteOne({token: refreshToken});
+        }
+
+        res.status(200).json({
+            success: true,
+            data: {}
+        });
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({success: false, message: "[ERROR]: Server Error"})
+    }
+
 };
