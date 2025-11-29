@@ -14,7 +14,7 @@ const BlacklistTokenSchema = new mongoose.Schema({
         required: true
     },
 
-    expriesAt: {
+    expiresAt: {
         type: Date,
         required: true,
     },
@@ -25,8 +25,5 @@ const BlacklistTokenSchema = new mongoose.Schema({
         expires: 86400
     }
 });
-
-BlacklistTokenSchema.index({token: 1});
-BlacklistTokenSchema.index({expriesAt: 1}, {expireAfterSeconds: 0});
 
 export default mongoose.model("BlacklistToken", BlacklistTokenSchema);
