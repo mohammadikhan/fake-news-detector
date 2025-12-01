@@ -9,26 +9,45 @@ from sklearn.model_selection import train_test_split
 from nltk.corpus import stopwords
 nltk.download('stopwords')
 
-stopWords = set(stopwords.words('english')) - {
-    'no', 'not', 'nor', 'never', 'neither', 'nobody', 'nothing', 'nowhere',
-    'against', 'but', 'however', 'very', 'too', 'more', 'most', 'few', 'some'
-}
 
 def cleanData(text):
     if pd.isnull(text):
         return ""
     
+    # Remove HTML tags
     text = BeautifulSoup(text, "html.parser").get_text()
+
+    # Remove URLs
     text = re.sub(r"http\S+|www\.\S+", "", text)
-    text.lower()
+
+    # Convert text to lowercaser and reassign
+    text = text.lower()
+
+    # Remove extra whitespace
     text = re.sub(r'\s+', ' ', text)
+
+    # Remove character NOT allowed in the set
+    # Character allowed: a-z, 0-9, whitespace, ., ,, !, ?, ', -
     text = re.sub(r"[^a-z0-9\s.,!?'-]", "", text)
+
+    # Remove space before punctuation
     text = re.sub(r'\s+([.,!?])', r'\1', text)
 
+    # Tokenize and filter based on length and stopwords
     words = text.split()
+
+    # Keep words longer than 1 character or the single letters 'i' and 'a'
     words = [w for w in words if len(w) > 1 or w in {'i', 'a'}]
+
+    # Remove stopwords
+    stopWords = set(stopwords.words('english')) - {
+    'no', 'not', 'nor', 'never', 'neither', 'nobody', 'nothing', 'nowhere',
+    'against', 'but', 'however', 'very', 'too', 'more', 'most', 'few', 'some'
+}
+
     words = [word for word in words if word not in stopWords]
 
+    # Rejoin words and strip leading and trailing whitespace
     text = " ".join(words)
     text = text.strip()
 
