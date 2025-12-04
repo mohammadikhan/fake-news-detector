@@ -108,10 +108,6 @@ export const login = async(req, res) => {
         return res.status(400).json({error: "[ERROR]: Invalid Password. Please try again"});
     }
 
-    if (!user.isVerified) {
-        return res.status(400).json({error: "[ERROR]: Please verify your account first before logging in."})
-    }
-
     const { accessToken, refreshToken } = generateTokens(user._id);
 
     try {
