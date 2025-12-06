@@ -5,6 +5,7 @@ import generateTokens from "../utils/generateJWT.js";
 import BlacklistToken from "../models/BlacklistToken.js";
 import RefreshToken from "../models/RefreshToken.js";
 import jwt from "jsonwebtoken";
+import mongoose from "mongoose";
 
 export const registerUser = async(req, res) => {
     
@@ -110,6 +111,8 @@ export const login = async(req, res) => {
 
     const { accessToken, refreshToken } = generateTokens(user._id);
 
+    const maxAge = 30 * 24 * 60 * 60 * 1000;
+
     try {
         await RefreshToken.create({
             token: refreshToken,
@@ -121,9 +124,16 @@ export const login = async(req, res) => {
         return res.status(500).json({success: false, error: "[ERROR]: Session was not established"})
     }
 
+    res.cookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV == 'production',
+        sameSite: 'strict',
+        maxAge: maxAge,
+    });
+
     res.json({
         accessToken: accessToken,
-        refreshToken: refreshToken,
+        // refreshToken: refreshToken,
         user: {
             id: user._id,
             name: user.name,
@@ -137,14 +147,15 @@ export const logout = async(req, res) => {
 
     try {
         const authHeader = req.headers.authorization;
-        const { refreshToken } = req.body;
+        const refreshToken = req.cookies.refreshToken;
+        let decoded = null;
 
         // Here we blacklist the access token (from the header)
         if (authHeader) {
             const accessToken = authHeader.split(" ")[1];
 
             // Decoding access token to get user ID and exiry time
-            const decoded = jwt.decode(accessToken);
+            decoded = jwt.decode(accessToken);
 
             // Blacklist only if the token is valid
             if (decoded) {
@@ -157,12 +168,29 @@ export const logout = async(req, res) => {
         }
 
         // Revoking the refresh token
-        if (refreshToken) {
-            await RefreshToken.deleteOne({token: refreshToken});
+        if (refreshToken && decoded) {
+
+            const userIdObjectId = new mongoose.ObjectId(decoded.id);
+            const deleteToken = await RefreshToken.deleteOne({
+                token: refreshToken,
+                userId: userIdObjectId
+            });
+
+            if (deleteToken.deletedCount === 0) {
+                 console.log(`[WARNING]: Revocation failed for user ${decoded.id}. Token not found.`);
+            }
+
         }
+
+        res.clearCookie('refreshToken', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+        })
 
         res.status(200).json({
             success: true,
+            message: "[SUCCESS]: User was successfully logged out",
             data: {}
         });
         
@@ -170,5 +198,4 @@ export const logout = async(req, res) => {
         console.log(error);
         res.status(500).json({success: false, message: "[ERROR]: Server Error"})
     }
-
 };
