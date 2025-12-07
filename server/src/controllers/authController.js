@@ -109,7 +109,7 @@ export const login = async(req, res) => {
         return res.status(400).json({error: "[ERROR]: Invalid Password. Please try again"});
     }
 
-    const { accessToken, refreshToken } = generateTokens(user._id);
+    const { accessToken, refreshToken } = generateTokens(user._id.toString());
 
     const maxAge = 30 * 24 * 60 * 60 * 1000;
 
@@ -167,13 +167,15 @@ export const logout = async(req, res) => {
             }
         }
 
+        console.log(decoded.id);
+
         // Revoking the refresh token
         if (refreshToken && decoded) {
 
-            const userIdObjectId = new mongoose.ObjectId(decoded.id);
+            // const userIdObjectId = new mongoose.ObjectId(decoded.id);
             const deleteToken = await RefreshToken.deleteOne({
                 token: refreshToken,
-                userId: userIdObjectId
+                userId: decoded.id
             });
 
             if (deleteToken.deletedCount === 0) {
