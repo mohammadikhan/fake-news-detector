@@ -167,12 +167,9 @@ export const logout = async(req, res) => {
             }
         }
 
-        console.log(decoded.id);
-
         // Revoking the refresh token
         if (refreshToken && decoded) {
 
-            // const userIdObjectId = new mongoose.ObjectId(decoded.id);
             const deleteToken = await RefreshToken.deleteOne({
                 token: refreshToken,
                 userId: decoded.id
