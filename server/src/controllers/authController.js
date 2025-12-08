@@ -5,7 +5,6 @@ import generateTokens from "../utils/generateJWT.js";
 import BlacklistToken from "../models/BlacklistToken.js";
 import RefreshToken from "../models/RefreshToken.js";
 import jwt from "jsonwebtoken";
-import mongoose from "mongoose";
 
 export const registerUser = async(req, res) => {
     
