@@ -2,20 +2,28 @@ import BlacklistToken from "../models/BlacklistToken.js";
 
 const checkBlacklist = async(req, res, next) => {
 
-    const authHeader = req.headers.authorization;
+    // Get the Access Token from the request object
+    const accessToken = req.accessToken;
 
-    if (authHeader) {
-        const token = authHeader.split(" ")[1];
-
-        // Check to see if the access token is blacklisted
-        const blacklisted = await BlacklistToken.findOne({token});
-
-        if (blacklisted) {
-            return res.status(401).json({ success: false, message: "[ERROR]: Your session has expired. Please login again."})
-        }
+    if (!accessToken) {
+        return res.status(401).json({ message: '[ERROR]: Access token was not provided by the server middleware'});
     }
 
-    next();
+    try {
+        const blacklisted = await BlacklistToken.findOne({accessToken});
+
+        // Token is blacklisted
+        if (blacklisted) {
+            return res.status(401).json({message: "[ERROR]: Your session has expired. Please login again."});
+        }
+
+        next();
+    
+    } catch (error) {
+        console.error("[ERROR]: There was an error in checking blacklist: ", error);
+        res.status(500).json({message: "[ERROR]: Server error during token validation."});
+    }
+
 };
 
 export default checkBlacklist;
