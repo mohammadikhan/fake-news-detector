@@ -2,30 +2,27 @@ import jwt from "jsonwebtoken";
 
 const verifyToken = (req, res, next) => {
 
-    // Extract the token from the 'Bearer <token>'
-    const authHeader = req.headers.authorization;
+    // Get the Access Token from the request object
+    const accessToken = req.accessToken;
 
-    if (!authHeader || !authHeader.startsWith('Bearer ')){
-        // The header is missing or not formatted correctly
-        return res.status(401).json({message: "[ERROR]: Authentication missing or it was not formatted correctly"});
-
+    if (!accessToken) {
+        return res.status(401).json({message: "[ERROR]: Access token is missing. Could not authorize."});
     }
 
-    const token = authHeader.split(" ")[1];
-
-    // verifying the token
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    // Verify the access token's signature and expiration
+    jwt.verify(accessToken, process.env.JWT_SECRET, (err, decoded) => {
 
         if (err) {
             // Token is invalid
-            return res.status(403).json({message: "[ERROR]: Token is invalid or has expired"});
+            return res.status(401).json({message: "[ERROR]: Access Token is invalid or has expired."});
         }
 
-        // Attach the user info to the request (the user object in this case is the decoded payload)
-        // Proceed to the next middleware
-        req.user = user;
+        // Attach decoded user ID to the request 
+        req.userId = decoded.id;
+
+        // Go to the next middleware (checkBlacklist)
         next();
-    });
+    })
 };
 
 export default verifyToken;
