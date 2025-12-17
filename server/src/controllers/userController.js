@@ -3,7 +3,7 @@ import User from "../models/User.js";
 export const getUserProfile = async(req, res) => {
 
     try {
-       const userId = req.user.id;
+       const userId = req.userId;
        
        const user = await User.findById(userId).select('-passwordHash');
 
