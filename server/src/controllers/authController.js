@@ -131,8 +131,7 @@ export const login = async(req, res) => {
     });
 
     res.json({
-        accessToken: accessToken,
-        // refreshToken: refreshToken,
+        success: true,
         user: {
             id: user._id,
             name: user.name,
@@ -145,39 +144,22 @@ export const login = async(req, res) => {
 export const logout = async(req, res) => {
 
     try {
-        const authHeader = req.headers.authorization;
         const refreshToken = req.cookies.refreshToken;
-        let decoded = null;
 
-        // Here we blacklist the access token (from the header)
-        if (authHeader) {
-            const accessToken = authHeader.split(" ")[1];
+        // Here we blacklist the access token that was generated for this request
+        // We use req.accessToken, which was atached by the attach access token middleware
+        if (req.accessToken && req.userId) {            
+            await BlacklistToken.create({
+                token: req.accessToken,
+                userId: req.userId,
+                expiresAt: new Date(Date.now() + 15 * 60 * 1000)
+            });
 
-            // Decoding access token to get user ID and exiry time
-            decoded = jwt.decode(accessToken);
-
-            // Blacklist only if the token is valid
-            if (decoded) {
-                await BlacklistToken.create({
-                    token: accessToken,
-                    userId: decoded.id,
-                    expiresAt: new Date(decoded.exp * 1000)
-                });
-            }
         }
 
         // Revoking the refresh token
-        if (refreshToken && decoded) {
-
-            const deleteToken = await RefreshToken.deleteOne({
-                token: refreshToken,
-                userId: decoded.id
-            });
-
-            if (deleteToken.deletedCount === 0) {
-                 console.log(`[WARNING]: Revocation failed for user ${decoded.id}. Token not found.`);
-            }
-
+        if (refreshToken) {
+            await RefreshToken.deleteOne({token: refreshToken});
         }
 
         res.clearCookie('refreshToken', {
@@ -189,11 +171,10 @@ export const logout = async(req, res) => {
         res.status(200).json({
             success: true,
             message: "[SUCCESS]: User was successfully logged out",
-            data: {}
         });
         
     } catch (error) {
-        console.log(error);
+        console.log("[LOGOUT-ERROR]: ", error);
         res.status(500).json({success: false, message: "[ERROR]: Server Error"})
     }
 };
