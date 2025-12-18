@@ -113,6 +113,11 @@ export const login = async(req, res) => {
     const maxAge = 30 * 24 * 60 * 60 * 1000;
 
     try {
+
+        // Remove old refresh tokens for the current user prior to saving the new one.
+        // Allows for one active session per browser
+        await RefreshToken.deleteMany({userId: user._id});
+
         await RefreshToken.create({
             token: refreshToken,
             userId: user._id
