@@ -1,13 +1,10 @@
 import pandas as pd
 import re
-import nltk
 import glob
 import os
 from bs4 import BeautifulSoup
 from sklearn.utils import shuffle
 from sklearn.model_selection import train_test_split
-from nltk.corpus import stopwords
-nltk.download('stopwords')
 
 
 def cleanData(text):
@@ -20,53 +17,13 @@ def cleanData(text):
     # Remove URLs
     text = re.sub(r"http\S+|www\.\S+", "", text)
 
-    # Convert text to lowercaser and reassign
-    text = text.lower()
-
     # Remove extra whitespace
     text = re.sub(r'\s+', ' ', text)
 
-    # Remove character NOT allowed in the set
-    # Character allowed: a-z, 0-9, whitespace, ., ,, !, ?, ', -
-    text = re.sub(r"[^a-z0-9\s.,!?'-]", "", text)
+    return text.strip()
 
-    # Remove space before punctuation
-    text = re.sub(r'\s+([.,!?])', r'\1', text)
-
-    # Tokenize and filter based on length and stopwords
-    words = text.split()
-
-    # Keep words longer than 1 character or the single letters 'i' and 'a'
-    words = [w for w in words if len(w) > 1 or w in {'i', 'a'}]
-
-    # Remove stopwords
-    stopWords = set(stopwords.words('english')) - {
-    'no', 'not', 'nor', 'never', 'neither', 'nobody', 'nothing', 'nowhere',
-    'against', 'but', 'however', 'very', 'too', 'more', 'most', 'few', 'some'
-}
-
-    words = [word for word in words if word not in stopWords]
-
-    # Rejoin words and strip leading and trailing whitespace
-    text = " ".join(words)
-    text = text.strip()
-
-    return text
-
-def kaggleNewsData():
-    realNews = pd.read_csv("../data/kaggle/True.csv")
-    fakeNews = pd.read_csv("../data/kaggle/Fake.csv")
-
-    realNews["label"] = 1
-    fakeNews["label"] = 0
-    df = pd.concat([realNews, fakeNews])
-
-    df["text"] = (df["title"].fillna("").astype(str) + ". " + df["text"].fillna("").astype(str))
-    df["text"] = df["text"].apply(cleanData)
-
-    df = df[df["text"].str.strip().str.len() > 10]
-
-    return df[["text", "label"]]
+def removeTags(text):
+    return re.sub(r'^.*?\s?\(Reuters\)\s?-\s?', '', str(text))
 
 def liarData():
     liarDataset = "../data/liar/"
@@ -99,9 +56,13 @@ def liarData():
 def welfakeData():
     df = pd.read_parquet("hf://datasets/davanstrien/WELFake/data/train-00000-of-00001-290868f0a36350c5.parquet")
 
+    # Flip labelling so that 1 = Real and 0 = Fake
+    df['label'] = df['label'].map({0: 1, 1: 0})
+
     if "title" in df.columns:
         df["text"] = (df["title"].fillna("").astype(str) + ". " + df["text"].fillna("").astype(str))
 
+    df["text"] = df["text"].apply(removeTags)
     df["text"] = df["text"].apply(cleanData)
 
     df = df[df["text"].str.strip().str.len() >= 10]
@@ -111,14 +72,12 @@ def welfakeData():
 def dataCombineAndSplit():
     
     # Load datasets
-    kaggleDf = kaggleNewsData()
     liarDf = liarData()
     welfakeDataDf = welfakeData()
 
     # Combine the datasets
-    combinedData = pd.concat([kaggleDf, liarDf, welfakeDataDf], ignore_index=True)
+    combinedData = pd.concat([liarDf, welfakeDataDf], ignore_index=True)
     combinedData = combinedData.dropna(subset=['text', 'label'])
-    combinedData = combinedData[combinedData['text'].str.strip() != '']
 
     # Remove duplicates
     combinedData = combinedData.drop_duplicates(subset=['text'], keep='first')
