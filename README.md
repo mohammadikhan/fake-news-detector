@@ -10,7 +10,6 @@ An AI-powered Fake News Detector
 - Databases: [MongoDB](https://www.mongodb.com/) 
 - Datasets: 
     - [LIAR](https://www.kaggle.com/datasets/doanquanvietnamca/liar-dataset)
-    - [Kaggle Fake News](https://www.kaggle.com/datasets/emineyetm/fake-news-detection-datasets)
     - [WELFake](https://huggingface.co/datasets/davanstrien/WELFake)
 - DevOps: 
     - [Docker (containerization)](https://www.docker.com/) 
