@@ -45,6 +45,32 @@ const AnalysisSchema = new mongoose.Schema({
 
     },
 
+    explainability: {
+        
+        topFakeIndicators: [{
+            token: String,
+            score: Number
+        }],
+
+        topRealIndicators: [{
+            token: String,
+            score: Number
+        }],
+
+        interpretation: String,
+        default: null
+
+    },
+
+    metadata: {
+        textLength: Number,
+        processingTime: String,
+        model: {
+            type: String,
+            default: 'RoBERTa-base'
+        }
+    },
+
 }, { timestamps: true });
 
 export default mongoose.model("Analysis", AnalysisSchema)
