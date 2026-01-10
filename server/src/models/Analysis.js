@@ -1,5 +1,22 @@
 import mongoose from "mongoose";
 
+const ExplanationSchema = new mongoose.Schema({
+
+    topFakeIndicators: [{
+        token: String,
+        score: Number
+    }],
+
+    topRealIndicators: [{
+        token: String,
+        score: Number
+    }],
+
+    interpretation: String
+
+}, {_id: false});
+
+
 const AnalysisSchema = new mongoose.Schema({
 
     user: {
@@ -46,20 +63,8 @@ const AnalysisSchema = new mongoose.Schema({
     },
 
     explainability: {
-        
-        topFakeIndicators: [{
-            token: String,
-            score: Number
-        }],
-
-        topRealIndicators: [{
-            token: String,
-            score: Number
-        }],
-
-        interpretation: String,
+        type: ExplanationSchema,
         default: null
-
     },
 
     metadata: {
