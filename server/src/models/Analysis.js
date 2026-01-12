@@ -99,6 +99,11 @@ const AnalysisSchema = new mongoose.Schema({
         }
     },
 
+    feedback: {
+        type: FeedbackSchema,
+        default: null
+    }
+
 }, { timestamps: true });
 
 export default mongoose.model("Analysis", AnalysisSchema)
