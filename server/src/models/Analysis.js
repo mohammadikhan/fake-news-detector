@@ -16,6 +16,29 @@ const ExplanationSchema = new mongoose.Schema({
 
 }, {_id: false});
 
+const FeedbackSchema = new mongoose.Schema({
+
+    isCorrect: {
+        type: Boolean,
+        required: true,
+    },
+
+    userPrediction: {
+        type: String,
+        enum: ["FAKE", "REAL"],
+        required: false,
+    },
+
+    comment: {
+        type: String,
+        maxLength: 500
+    },
+
+    reportedAt: {
+        type: Date,
+        default: Date.now()
+    }
+}, {_id: false });
 
 const AnalysisSchema = new mongoose.Schema({
 
