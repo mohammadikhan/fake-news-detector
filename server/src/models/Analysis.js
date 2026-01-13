@@ -2,17 +2,14 @@ import mongoose from "mongoose";
 
 const ExplanationSchema = new mongoose.Schema({
 
-    topFakeIndicators: [{
-        token: String,
-        score: Number
-    }],
+    topFakeIndicators: [String],
 
-    topRealIndicators: [{
-        token: String,
-        score: Number
-    }],
+    topRealIndicators: [String],
 
-    interpretation: String
+    interpretation: {
+        type: String,
+        required: true
+    } 
 
 }, {_id: false});
 
@@ -56,7 +53,7 @@ const AnalysisSchema = new mongoose.Schema({
 
     prediction: {
         type: String,
-        enum: ["FAKE, REAL"],
+        enum: ["FAKE", "REAL"],
         required: true
     },
 
