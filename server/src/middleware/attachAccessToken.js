@@ -21,7 +21,7 @@ const attachAccessToken = async(req, res, next) => {
         const { accessToken } = generateTokens(tokenInDB.userId.toString());
 
         req.accessToken = accessToken;
-        req.userId = tokenInDB.userId.toString();
+        // req.userId = tokenInDB.userId.toString();
 
         next();
 
