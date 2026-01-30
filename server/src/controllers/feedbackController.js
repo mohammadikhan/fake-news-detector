@@ -4,8 +4,7 @@ export const submitFeedback = async(req, res) => {
 
     try {
 
-        const { id } = req.params;
-        const { isCorrect, userPrediction, comment } = req.body;
+        const { id, isCorrect, userPrediction, comment } = req.body;
         const userId = req.userId;
 
         const analysis = await Analysis.findById(id);
@@ -23,6 +22,7 @@ export const submitFeedback = async(req, res) => {
         }
 
         analysis.feedback = {
+            user: userId,
             isCorrect,
             userPrediction,
             comment
@@ -31,7 +31,7 @@ export const submitFeedback = async(req, res) => {
         console.log(userId);
         await analysis.save();
 
-        res.status(200).json({success: true, feedback: analysis.feedback});
+        res.status(201).json({success: true, message: "[SUCCESS]: Feedback was submitted", feedback: analysis.feedback});
     
     } catch (error) {
         console.error(error);
