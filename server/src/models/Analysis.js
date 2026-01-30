@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
 
 const ExplanationSchema = new mongoose.Schema({
 
@@ -14,6 +14,12 @@ const ExplanationSchema = new mongoose.Schema({
 }, {_id: false});
 
 const FeedbackSchema = new mongoose.Schema({
+
+    user: {
+        type: mongoose.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
 
     isCorrect: {
         type: Boolean,
@@ -35,6 +41,7 @@ const FeedbackSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     }
+
 }, {_id: false });
 
 const AnalysisSchema = new mongoose.Schema({
