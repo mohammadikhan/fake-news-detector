@@ -5,25 +5,21 @@ export const getAnalysisFeedback = async(req, res) => {
     try {
         const { id } = req.params;
 
-        const analysis = await Analysis.findById(id);
+        const analysis = await Analysis.findById(id).select("prediction confidence feedback");
 
-        if (!analysis) {
-            return res.status(404).json({message: "[ERROR]: Analysis was not found"});
-        }
-
-        if (!analysis.feedback) {
-            return res.status(200).json({message: "[NO-FEEDBACK]: This analyis has no feedback submitted for it", feedback: null});
+        if (!analysis || !analysis.feedback) {
+            return res.status(404).json({message: "[ERROR]: No Feedback found"});
         }
 
         return res.status(200).json({
-            analysisId: id,
+            id,
             modelPrediction: analysis.prediction,
             confidence: analysis.confidence,
             feedback: analysis.feedback
         });
 
-    } catch {
-        console.error(error);
+    } catch (err) {
+        console.error(err);
         return res.status(500).json({message: "[SERVER-ERROR]: Could not get feedback for analysis"})
     }
 }
