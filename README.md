@@ -17,6 +17,7 @@ An AI-powered Fake News Detector
 
 
 ## Installation
+- Follow the instruction below for installation:
 
 
 ## Usage
