@@ -2,6 +2,7 @@
 An AI-powered Fake News Detector
 
 ## Features
+This application will allow users too:
 
 ## Architecture and Tech Stack
 - Backend: [Node.js (Express.js)](https://nodejs.org/en)
