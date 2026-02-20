@@ -1,5 +1,5 @@
 # VeriNews - AI Fake News Detector
-An AI-powered Fake News Detector
+This is An AI-powered Fake News Detector
 
 ## Features
 This application will allow users too:
