@@ -3,6 +3,7 @@ This is an AI-powered Fake News Detector
 
 ## Features
 This application allows users too:
+- Paste news articles text and analyze if they are real or fake
 
 ## Architecture and Tech Stack
 - Backend: [Node.js (Express.js)](https://nodejs.org/en), [FastAPI (Python)](https://fastapi.tiangolo.com/)
