@@ -6,6 +6,7 @@ This application allows users too:
 - Paste news articles text and analyze if they are real or fake
 - Provide feedback to the model stating if the prediction was correct or not and also having the option to add a comment
 - Allow users to view all the analyses they have performed (History section)
+- Allow users to view all feedback they submittied for all the analyses they performed (Feedback History Section)
 
 ## Architecture and Tech Stack
 - Backend: [Node.js (Express.js)](https://nodejs.org/en), [FastAPI (Python)](https://fastapi.tiangolo.com/)
