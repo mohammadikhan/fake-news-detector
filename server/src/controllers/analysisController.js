@@ -49,3 +49,10 @@ export const analyze = async(req, res) => {
     }
 
 };
+
+export const statistics = async(req, res) => {
+    
+    const count = await Analysis.countDocuments();
+
+    res.json({totalAnalyses: count});
+};
