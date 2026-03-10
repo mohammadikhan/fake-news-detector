@@ -18,3 +18,11 @@ export const getUserProfile = async(req, res) => {
         res.status(500).json({ message: "[ERROR]: Server Error occurred when retrieving user profile"});
     }
 }
+
+export const getNumUsers = async(req, res) => {
+    
+    const count = await User.countDocuments();
+
+    res.json({totalUsers: count});
+};
+
