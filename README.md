@@ -26,3 +26,4 @@ This application allows users too:
 
 
 ## Usage
+- This application can be used for:
