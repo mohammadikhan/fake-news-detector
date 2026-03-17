@@ -12,10 +12,6 @@ export const registerUser = async(req, res) => {
 
     const doesExist = await User.findOne({email});
 
-    console.log(name)
-    console.log(email)
-    console.log(passwordHash)
-
     if (doesExist) {
         return res.status(400).json({error: "[ERROR]: This E-Mail is already registered to an account" })
     }
