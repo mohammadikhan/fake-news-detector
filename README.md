@@ -22,7 +22,8 @@ This application allows users too:
 
 
 ## Installation
-- Follow the instruction below for installation:
+Follow the instructions below for installation:
+- To Run Application locally:
 
 
 ## Usage
