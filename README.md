@@ -7,6 +7,7 @@ This application allows users too:
 - Provide feedback to the model stating if the prediction was correct or not and also having the option to add a comment
 - Allow users to view all the analyses they have performed (History section)
 - Allow users to view all feedback they submittied for all the analyses they performed (Feedback History Section)
+- A dashboard showing total number of analyses performed, feedbacks submitted, along with a correction insights section
 
 ## Architecture and Tech Stack
 - Backend: [Node.js (Express.js)](https://nodejs.org/en), [FastAPI (Python)](https://fastapi.tiangolo.com/)
