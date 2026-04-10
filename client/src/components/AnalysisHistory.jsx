@@ -164,17 +164,17 @@ const AnalysisHistory = () => {
 
                 {/* List all of the users analyses */}
                 {filterAnalyses.length === 0 ? (
-                    <div className="rounded-3xl p-12 flex flex-col items-center gap-3 text-center" style={{background: "#fefdfb", border: "1px solid rgba(0, 212, 255, 0.12)", backdropFilter: "blur(10px)"}}>
+                    <div className="rounded-3xl p-12 flex flex-col items-center gap-3 text-center" style={{background: "#fefdfb", backdropFilter: "blur(10px)"}}>
 
-                        <FileText className="w-10 h-10" style={{color: "#334155"}}/>
-                        <p className="text-sm font-medium" style={{color: "#0c0c0d"}}>
-                            {analyses.length === 0 ? "No Analyses yet." : "No results matched your search :("}
+                        <FileText className="w-10 h-10" style={{color: "#7a7570"}}/>
+                        <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontStyle: "italic", fontSize: "14px", color: "#7a7570"}}>
+                            {analyses.length === 0 ? "No analyses have been sumbitted yet." : "No results matched your search :("}
                         </p>
                         {analyses.length === 0 && (
                             <button 
                                 className="mt-2 text-sm font-semibold px-4 py-2 rounded-lg text-white hover:opacity-90"
                                 onClick={() => navigate("/analyze")}
-                                style={{background: "#1c1c1c"}}
+                                style={{background: "#1c1c1c", fontFamily: "'Libre Baskerville', Georgia, serif"}}
                             >
                                 Analyze your first article!
                             </button>
