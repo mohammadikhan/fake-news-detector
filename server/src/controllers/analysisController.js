@@ -6,7 +6,13 @@ export const analyze = async(req, res) => {
     try {
         const { text, includeExplanation } = req.body;
 
-        if (!text || text.length < 50) {
+        if (!text) {
+            return res.status(400).json({error: "[ERROR]: Provided text is too short to analyze"})
+        }
+
+        const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
+
+        if (wordCount < 250) {
             return res.status(400).json({error: "[ERROR]: Provided text is too short to analyze"})
         }
 
@@ -33,7 +39,7 @@ export const analyze = async(req, res) => {
                 interpretation: mlResult.explainability.interpretation
             } : null,
             metadata: {
-                textLength: text.length,
+                textLength: wordCount,
                 processingTime: processingTime.toString(),
                 model: "RoBERTa-base"
             }
