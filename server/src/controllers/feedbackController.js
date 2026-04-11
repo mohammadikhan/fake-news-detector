@@ -4,10 +4,12 @@ export const submitFeedback = async(req, res) => {
 
     try {
 
-        const { id, isCorrect, userPrediction, comment } = req.body;
+        const { analysisId, isCorrect, userPrediction, comment } = req.body;
         const userId = req.userId;
 
-        const analysis = await Analysis.findById(id);
+        const analysis = await Analysis.findById(analysisId);
+
+        console.log(analysisId);
 
         if (!analysis) {
             return res.status(404).json({message: "[ERROR]: Analysis was not found"});
@@ -21,11 +23,20 @@ export const submitFeedback = async(req, res) => {
             return res.status(400).json({message: "[ERROR]: Feedback has already been submitted for this analysis. Multiple feedbacks cannot be done to the same analysis"});
         }
 
+        let correctLabel;
+
+        if (isCorrect) {
+            correctLabel = analysis.prediction
+
+        } else {
+            correctLabel = analysis.prediction === "FAKE" ? "REAL" : "FAKE";
+        }
+
         analysis.feedback = {
             user: userId,
             isCorrect,
-            userPrediction,
-            comment
+            userPrediction: correctLabel,
+            comment: comment || null
         }
 
         console.log(userId);
