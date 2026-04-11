@@ -4,12 +4,10 @@ export const submitFeedback = async(req, res) => {
 
     try {
 
-        const { analysisId, isCorrect, userPrediction, comment } = req.body;
+        const { analysisId, isCorrect, comment } = req.body;
         const userId = req.userId;
 
         const analysis = await Analysis.findById(analysisId);
-
-        console.log(analysisId);
 
         if (!analysis) {
             return res.status(404).json({message: "[ERROR]: Analysis was not found"});
@@ -39,7 +37,6 @@ export const submitFeedback = async(req, res) => {
             comment: comment || null
         }
 
-        console.log(userId);
         await analysis.save();
 
         res.status(201).json({success: true, message: "[SUCCESS]: Feedback was submitted", feedback: analysis.feedback});
