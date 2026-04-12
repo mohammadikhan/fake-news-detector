@@ -63,7 +63,7 @@ const AppNav = () => {
                         ) : (
                             <>
                             {/* Display Instrcuction Navigation Links when User is not logged in */}
-                            {["Features", "How It Works", "About"].map((item) => (
+                            {["Features", "How It Works"].map((item) => (
                                 <a key={item} href={`/#${item.toLowerCase().replace(/\s+/g, "-")}`} style={{color: "#4a4440", textDecoration: "none"}} 
                                 onMouseEnter={e => e.target.style.color = "#1c1c1c"} onMouseLeave={e => e.target.style.color = "#4a4440"}>
                                     {item}
