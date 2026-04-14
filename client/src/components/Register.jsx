@@ -72,7 +72,7 @@ const Register = () => {
                                 background: "rgba(139, 0, 0, 0.06)",
                                 border: "1px solid #8b0000",
                                 fontFamily: "'Libre Baskerville', Georgia, serif",
-                                fontSize: "13px",
+                                fontSize: "14px",
                                 padding: "10px 14px",
                                 marginBottom: "20px",
                             }}>
@@ -87,7 +87,7 @@ const Register = () => {
                               {label: "Confirm Password", name: "confirmPassword", type: "password", placeholder: "••••••••"}
                             ].map(({label, name, type, placeholder}) => (
                                 <div key={name}>
-                                    <label style={{display: "block", fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase", color: "#000000", marginBottom: "6px"}}>
+                                    <label style={{display: "block", fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", letterSpacing: "0.1em", textTransform: "uppercase", color: "#000000", marginBottom: "6px"}}>
                                         {label}
                                     </label>
                                     <input
@@ -104,7 +104,7 @@ const Register = () => {
                                             border: "1px solid #1c1c1c",
                                             color: "#1c1c1c",
                                             fontFamily: "'Libre Baskerville', Georgia, serif",
-                                            fontSize: "14px",
+                                            fontSize: "15px",
                                             outline: "none",
                                             width: "100%",
                                             padding: "10px 10px"
@@ -121,7 +121,7 @@ const Register = () => {
                                     border: "1px solid #1c1c1c",
                                     padding: "12px",
                                     fontFamily: "'Libre Baskerville', Georgia, serif",
-                                    fontSize: "12px",
+                                    fontSize: "14px",
                                     letterSpacing: "0.12em",
                                     textTransform: "uppercase",
                                     fontWeight: 700,
@@ -133,7 +133,7 @@ const Register = () => {
                             </button>
                         </form>
 
-                        <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "12px", color: "#000000", textAlign: "center", marginTop: "24px"}}>
+                        <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", color: "#000000", textAlign: "center", marginTop: "24px"}}>
                             Already Registered? <br/>
                             <a href="/login" style={{color: "#8b0000", textDecoration: "underline"}}>Sign In</a>
                         </p>

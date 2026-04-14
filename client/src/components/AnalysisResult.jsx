@@ -14,7 +14,7 @@ const AnalysisResult = ({result}) => {
         const words = line.split("**");
         
         return (
-            <p key={lineIdx} style={{marginBottom: "4px", fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", lineHeight: 1.7, color: "#4a4440"}}>
+            <p key={lineIdx} style={{marginBottom: "4px", fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "14px", lineHeight: 1.7, color: "#4a4440"}}>
                 {words.map((word, i) =>
                     i % 2 === 1 ? <strong key={i} style={{color: "#1c1c1c", fontWeight: 700}}>{word}</strong> : word
                 )}
@@ -27,8 +27,8 @@ const AnalysisResult = ({result}) => {
 
         return (
             <div>
-                <div className="flex justify-between" style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "12px", color: "#000000", marginBottom: "6px"}}>
-                    <span style={{textTransform: "uppercase", letterSpacing: "0.08em", fontSize: "11px"}}>{label}</span>
+                <div className="flex justify-between" style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", color: "#000000", marginBottom: "6px"}}>
+                    <span style={{textTransform: "uppercase", letterSpacing: "0.08em", fontSize: "13px"}}>{label}</span>
                     <span style={{color, fontWeight: 700}}>{(value * 100).toFixed(1)}%</span>
                 </div>
                 
@@ -45,7 +45,7 @@ const AnalysisResult = ({result}) => {
         return (
             <span style={{
                 fontFamily: "'Libre Baskerville', Georgia, serif",
-                fontSize: "11px",
+                fontSize: "13px",
                 fontWeight: 700,
                 padding: "3px 8px",
                 border: `1px solid ${verdict === "fake" ? "#8b0000" : "#1a4d1a"}`,
@@ -67,7 +67,7 @@ const AnalysisResult = ({result}) => {
             <h3 style={{
                 fontFamily: "'Playfair Display', Georgia, serif",
                 fontWeight: 700,
-                fontSize: "15px",
+                fontSize: "16px",
                 color: "#1c1c1c",
                 borderBottom: "1px solid #1c1c1c",
                 paddingBottom: "6px",
@@ -96,7 +96,7 @@ const AnalysisResult = ({result}) => {
                 }}>
 
                     <div>
-                        <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontWeight: 700, fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "#000000", marginBottom: "4px"}}>
+                        <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontWeight: 700, fontSize: "12px", letterSpacing: "0.15em", textTransform: "uppercase", color: "#000000", marginBottom: "4px"}}>
                             Verdict:
                         </p>
                         <p style={{fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 900, fontSize: "48px", color: verdictColor, lineHeight: 1, letterSpacing: "-0.02em"}}>
@@ -104,7 +104,7 @@ const AnalysisResult = ({result}) => {
                         </p>
                     </div>
                     <div style={{textAlign: "right"}}>
-                        <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontWeight: 700, fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "#000000", marginBottom: "4px"}}>
+                        <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontWeight: 700, fontSize: "12px", letterSpacing: "0.15em", textTransform: "uppercase", color: "#000000", marginBottom: "4px"}}>
                             Confidence:
                         </p>
                         <p style={{fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 900, fontSize: "48px", color: verdictColor, lineHeight: 1, letterSpacing: "-0.02em"}}>
@@ -129,7 +129,7 @@ const AnalysisResult = ({result}) => {
 
                         {result.explainability.topFakeIndicators?.length > 0 && (
                             <div style={{marginBottom: "16px"}}>
-                                <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "10px", letterSpacing: "0.12em", textTransform: "uppercase", color: "#8b0000", marginBottom: "8px"}}>
+                                <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "12px", letterSpacing: "0.12em", textTransform: "uppercase", color: "#8b0000", marginBottom: "8px"}}>
                                     Fake Indicators:
                                 </p>
                                 <div className="flex flex-wrap gap-2">
@@ -142,7 +142,7 @@ const AnalysisResult = ({result}) => {
 
                         {result.explainability.topRealIndicators?.length > 0 && (
                             <div style={{marginBottom: "16px"}}>
-                                <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "10px", letterSpacing: "0.12em", textTransform: "uppercase", color: "#1a4d1a", marginBottom: "8px"}}>
+                                <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "12px", letterSpacing: "0.12em", textTransform: "uppercase", color: "#1a4d1a", marginBottom: "8px"}}>
                                     Real Indicators:
                                 </p>
                                 <div className="flex flex-wrap gap-2">
@@ -155,7 +155,7 @@ const AnalysisResult = ({result}) => {
 
                         {result.explainability.interpretation && (
                             <div style={{marginBottom: "16px"}}>
-                                <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "10px", letterSpacing: "0.12em", textTransform: "uppercase", color: "#000000", marginBottom: "8px"}}>
+                                <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "12px", letterSpacing: "0.12em", textTransform: "uppercase", color: "#000000", marginBottom: "8px"}}>
                                     Explanation:
                                 </p>
                                 <div style={{background: "#eeebeb", border: "1px solid rgba(28, 28, 28, 0.15)", padding: "14px 16px"}}>
@@ -173,8 +173,8 @@ const AnalysisResult = ({result}) => {
                             {[{label: "Word Count", value: `${result.metadata.textLength} words`}, {label: "Processing Time", value: `${result.metadata.processingTime}s`}, {label: "Model", value: result.metadata.model}
                             ].map(({label, value}) => (
                                 <div key={label}>
-                                    <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "10px", letterSpacing: "0.1em", textTransform: "uppercase", color: "#000000"}}>{label}</p>
-                                    <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", fontWeight: 800, color: "#000000", marginTop: "4px"}}>{value}</p>
+                                    <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "12px", letterSpacing: "0.1em", textTransform: "uppercase", color: "#000000"}}>{label}</p>
+                                    <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "14px", fontWeight: 800, color: "#000000", marginTop: "4px"}}>{value}</p>
                                 </div>
                             ))}
                         </div>

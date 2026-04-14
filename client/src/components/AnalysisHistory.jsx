@@ -116,9 +116,9 @@ const AnalysisHistory = () => {
 
             <div className="max-w-5xl mx-auto px-6 pt-28 pb-20">
                 <div className="mb-8">
-                    <p style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "11px", letterSpacing: "0.12em", textTransform: "uppercase", color: "#8b0000"}}>Analyses</p>
+                    <p style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", letterSpacing: "0.12em", textTransform: "uppercase", color: "#8b0000"}}>Analyses</p>
                     <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 900, fontSize: "36px", color: "#1c1c1c", lineHeight: 1.1 }}>Analysis History</h1>
-                    <div className="flex items-center gap-4 flex-wrap" style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", color: "#050505", marginTop: "6px" }}>
+                    <div className="flex items-center gap-4 flex-wrap" style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "14px", color: "#050505", marginTop: "6px" }}>
                         <span>{analyses.length} Total</span>
                         <span className="w-1 h-1 rounded-full bg-curent"/>
                         <span style={{color: "#8b0000"}}>{fakeCount} FAKE</span>

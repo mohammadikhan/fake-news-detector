@@ -94,7 +94,7 @@ const Stats = () => {
                         <CountUp end={value} duration={5} separator="," />
                         {suffix}
                     </p>
-                    <p style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "12px", letterSpacing: "0.1em", textTransform: "uppercase", color: "#4a4440", marginTop: "6px" }}>
+                    <p style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", letterSpacing: "0.1em", textTransform: "uppercase", color: "#4a4440", marginTop: "6px" }}>
                         {label}
                     </p>
                     </div>
@@ -138,7 +138,7 @@ const Features = () => {
                 >
                     <div className="flex justify-center mb-4">{icon}</div>
                         <h3 style={{fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: "18px", color: "#1c1c1c", marginBottom: "8px"}}>{title}</h3>
-                        <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", lineHeight: 1.7, color: "#4a4440"}}>{description}</p>
+                        <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "14px", lineHeight: 1.7, color: "#4a4440"}}>{description}</p>
                     </div>
             ))}
         </div>
@@ -175,7 +175,7 @@ const HowItWorks = () => {
                 
                         <div className="flex justify-center mb-4">{icon}</div>
                         <h3 style={{fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: "18px", color: "#1c1c1c", marginBottom: "8px"}}>{title}</h3>
-                        <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", lineHeight: 1.7, color: "#4a4440"}}>{description}</p>
+                        <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "14px", lineHeight: 1.7, color: "#4a4440"}}>{description}</p>
                     
                     </div>
                 ))}
@@ -187,7 +187,7 @@ const HowItWorks = () => {
 const Footer = () => {
 
     return (
-        <footer className="text-center py-6" style={{borderTop: "3px double #1c1c1c", fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "12px", color:"#7a7570", letterSpacing: "0.05em"}}>
+        <footer className="text-center py-6" style={{borderTop: "3px double #1c1c1c", fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", color:"#7a7570", letterSpacing: "0.05em"}}>
             &copy; {new Date().getFullYear()} VeriNews AI 
             <a href="https://github.com/mohammadikhan/fake-news-detector" style={{marginLeft: "20px"}}>
                 <GitHubIcon/>

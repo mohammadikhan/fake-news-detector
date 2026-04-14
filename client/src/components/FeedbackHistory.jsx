@@ -81,9 +81,9 @@ const FeedbackHistory = () => {
 
             <div className="max-w-5xl mx-auto px-6 pt-28 pb-20">
                 <div className="mb-8">
-                    <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "11px", letterSpacing: "0.12em", textTransform: "uppercase", color: "#8b0000"}}>Feedback</p>
+                    <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", letterSpacing: "0.12em", textTransform: "uppercase", color: "#8b0000"}}>Feedback</p>
                     <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 900, fontSize: "36px", color: "#1c1c1c", lineHeight: 1.1 }}>Feedback History</h1>
-                    <div className="flex items-center gap-4 flex-wrap" style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", color: "#050505", marginTop: "6px" }}>
+                    <div className="flex items-center gap-4 flex-wrap" style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "14px", color: "#050505", marginTop: "6px" }}>
                         <span>{feedbacks.length} Total</span>
                         <span className="w-1 h-1 rounded-full bg-current"/>
                         <span style={{color: "#1a4d1a"}}>{numConfirmed} CONFIRMED</span>
@@ -118,7 +118,7 @@ const FeedbackHistory = () => {
                             {feedbacks.length === 0 ? "No feedback has been sumbitted yet." : "No results matched your search :("}
                         </p>
                         {feedbacks.length === 0 && (
-                            <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "12px", color: "#7a7570"}}>
+                            <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", color: "#7a7570"}}>
                                 Once you perform an analysis and provide feedback, it will appear here.
                             </p>
                         )}
@@ -135,7 +135,7 @@ const FeedbackHistory = () => {
                                 <div className="rounded-xl" key={f.analysisId} style={{background: "#eeebeb", border: `1px solid #1c1c1c`, padding: "20px 24px"}}>
                                     <div className="flex items-center gap-3 flex-wrap mb-3">
                                         <div className="flex items-center gap-2">
-                                            <span style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "11px", color: "#000000"}}>
+                                            <span style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", color: "#000000"}}>
                                                 Model Predicted
                                             </span>
                                             <Prediction prediction={f.prediction}/>
@@ -145,7 +145,7 @@ const FeedbackHistory = () => {
                                             <>
                                                 <ArrowBigRightIcon className="w-3.5 h-3.5 flex-shrink-0" style={{color: "#7a7570"}}/>
                                                 <div className="flex items-center gap-2">
-                                                    <span style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "11px", color: "#000000"}}>
+                                                    <span style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", color: "#000000"}}>
                                                         Corrected To
                                                     </span>
                                                     <Prediction prediction={correctedTo}/>
@@ -156,12 +156,12 @@ const FeedbackHistory = () => {
 
                                         <div className="ml-auto flex-shrink-0">
                                             {isCorrect ? (
-                                                <span className="flex items-center gap-1.5" style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "11px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#1a4d1a", border: `1px solid "#1a4d1a"`, padding: "3px 10px"}}>
+                                                <span className="flex items-center gap-1.5" style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#1a4d1a", border: `1px solid "#1a4d1a"`, padding: "3px 10px"}}>
                                                     <CheckCircle2 className="w-3 h-3"/> 
                                                     Confirmed
                                                 </span>
                                             ): (
-                                                <span className="flex items-center gap-1.5" style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "11px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#8b0000", border: `1px solid "#8b0000"`, padding: "3px 10px"}}>
+                                                <span className="flex items-center gap-1.5" style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#8b0000", border: `1px solid "#8b0000"`, padding: "3px 10px"}}>
                                                     <FileX2Icon className="w-3 h-3"/>
                                                     Corrected
                                                 </span>
@@ -170,7 +170,7 @@ const FeedbackHistory = () => {
                                     </div>
 
                                     {/* Preview Article that was analyzed */}
-                                    <p className="line-clamp-2 mb-3" style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", lineHeight: 1.6, color: "#000000"}}>
+                                    <p className="line-clamp-2 mb-3" style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "14px", lineHeight: 1.6, color: "#000000"}}>
                                         {f.inputText}
                                     </p>
 
@@ -178,14 +178,14 @@ const FeedbackHistory = () => {
                                     {comment && (
                                         <div className="flex items-start gap-2 mb-3" style={{background: "#fefdfb", border: `2px solid #000000`, padding: "10px 12px"}}>
                                             <MessageSquareMore className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" style={{color: "#7a7570"}}/>
-                                            <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "12px", lineHeight: 1.6, fontStyle: "italic", color: "#4a4440"}}>
+                                            <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", lineHeight: 1.6, fontStyle: "italic", color: "#4a4440"}}>
                                                 "{comment}"
                                             </p>
                                         </div>
                                     )}
 
                                     {/* Footer */}
-                                    <div className="flex items-center gap-3 flex-wrap" style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "11px", color:"#8b0000", borderTop: `1px solid rgba(28, 28, 28, 0.1)`, paddingTop: "10px"}}>
+                                    <div className="flex items-center gap-3 flex-wrap" style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", color:"#8b0000", borderTop: `1px solid rgba(28, 28, 28, 0.1)`, paddingTop: "10px"}}>
                                         <span>{Math.round(f.confidence * 100)}% Model Confidence</span>
                                         <span className="ml-auto">
                                             {new Date(f.analyzedAt).toLocaleDateString("en-US", {year: "numeric", month: "long", day: "numeric"})}
@@ -198,7 +198,7 @@ const FeedbackHistory = () => {
                 )}
 
                 {filterFeedbacks.length > 0 && filterFeedbacks.length !== feedbacks.length && (
-                    <p style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "12px", color: "#7a7570", textAlign: "center", marginTop: "20px", fontStyle: "italic"}}>
+                    <p style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", color: "#7a7570", textAlign: "center", marginTop: "20px", fontStyle: "italic"}}>
                         Showing {filterFeedbacks.length} of {feedbacks.length} feedback submissions
                     </p>
                 )}
