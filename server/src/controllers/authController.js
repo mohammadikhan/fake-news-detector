@@ -104,6 +104,14 @@ export const login = async(req, res) => {
         return res.status(400).json({error: "[ERROR]: Invalid Password. Please try again"});
     }
 
+    if (!user.isVerified) {
+        return res.status(403).json({
+            error: "[ERROR]: Please verify your email before logging in.",
+            needsVerification: true,
+            email: user.email,
+        });
+    }
+
     const { accessToken, refreshToken } = generateTokens(user._id.toString());
 
     const maxAge = 30 * 24 * 60 * 60 * 1000;
