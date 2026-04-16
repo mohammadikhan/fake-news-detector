@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import AppNav from "./ui/AppNav.jsx";
 import { useNavigate } from "react-router-dom";
-import { CheckCircle, FileText, Minus, Search } from "lucide-react";
+import { AlertTriangle, CheckCircle, FileText, Minus, Search } from "lucide-react";
 import API from "../api/axios.js";
 
 const AnalysisHistory = () => {
@@ -168,7 +168,7 @@ const AnalysisHistory = () => {
 
                         <FileText className="w-10 h-10" style={{color: "#7a7570"}}/>
                         <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontStyle: "italic", fontSize: "14px", color: "#7a7570"}}>
-                            {analyses.length === 0 ? "No analyses have been sumbitted yet." : "No results matched your search :("}
+                            {analyses.length === 0 ? "No analyses have been submitted yet." : "No results matched your search :("}
                         </p>
                         {analyses.length === 0 && (
                             <button 

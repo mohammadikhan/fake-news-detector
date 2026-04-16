@@ -1,4 +1,4 @@
-import { ArrowBigRightIcon, CheckCircle2, FileX2Icon, MessageSquare, MessageSquareMore } from "lucide-react";
+import { AlertTriangle, ArrowBigRightIcon, CheckCircle2, FileX2Icon, MessageSquare, MessageSquareMore } from "lucide-react";
 import API from "../api/axios";
 import AppNav from "./ui/AppNav";
 import { useState, useEffect } from "react";
@@ -115,7 +115,7 @@ const FeedbackHistory = () => {
                     <div style={{background: "#fefdfb", padding: "48px", display: "flex", flexDirection: "column", alignItems: "center", gap: "12px", textAlign: "center"}}>
                         <MessageSquare className="w-10 h-10" style={{color: "#7a7570"}}/>
                         <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontStyle: "italic", fontSize: "14px", color: "#7a7570"}}>
-                            {feedbacks.length === 0 ? "No feedback has been sumbitted yet." : "No results matched your search :("}
+                            {feedbacks.length === 0 ? "No feedback has been submitted yet." : "No results matched your search :("}
                         </p>
                         {feedbacks.length === 0 && (
                             <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", color: "#7a7570"}}>

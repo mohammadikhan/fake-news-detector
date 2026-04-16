@@ -89,7 +89,7 @@ const Feedback = ({analysisId, prediction}) => {
                 )}
 
                 {isCorrect !== null && (
-                    <div style={{diplay: "flex", flexDirection: "column", gap: "16px"}}>
+                    <div style={{display: "flex", flexDirection: "column", gap: "16px"}}>
                         <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", color: "#4a4440"}}>
                             {isCorrect ? <>Confirming prediction as <strong style={{ color: "#000000"}}>{prediction}</strong></>
                             : <>Correcting prediction as <strong style={{ color: "#000000"}}>{correctLabel}</strong></>}
@@ -141,7 +141,7 @@ const Feedback = ({analysisId, prediction}) => {
                 )}
 
                 {error && (
-                    <p style={{fontFamily: "'Libre Baskerville, Georgia, serif", fontFamily: "13px", color: "#8b0000", marginTop: "12px"}}>{error}</p>
+                    <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", color: "#8b0000", marginTop: "12px"}}>{error}</p>
                 )}
             </div>
         
