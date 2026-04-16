@@ -4,22 +4,6 @@ import { FileText, Lightbulb } from "lucide-react";
 import AnalysisResult from "./AnalysisResult";
 import API from "../api/axios";
 
-// DEV: Remove before production
-const DUMMY_RESULT = {
-    _id: "dev_dummy_001",
-    prediction: "REAL",
-    confidence: 0.91,
-    probabilities: { fake: 0.91, real: 0.09 },
-    explainability: {
-        topFakeIndicators: ["sensational language", "unverified sources", "emotional manipulation", "lack of citations", "misleading headline"],
-        topRealIndicators: ["factual tone", "named sources"],
-        interpretation: "The article exhibits **multiple hallmarks** of misinformation: heavy reliance on emotional language, absence of verifiable sources, and a headline that exaggerates the underlying claims. The model is highly confident this content is fabricated or misleading."
-    },
-    metadata: { textLength: 1420, processingTime: "3.24", model: "RoBERTa-base" },
-    feedback: null,
-    createdAt: new Date().toISOString(),
-};
-
 const AnalysisForm = () => {
 
     const [text, setText] = useState("");
@@ -139,23 +123,6 @@ const AnalysisForm = () => {
                                         {error}
                                     </div>
                                 )}
-                                {/* DEV: Remove before production */}
-                                <button type="button" onClick={() => setResult(DUMMY_RESULT)}
-                                    style={{
-                                        background: "transparent",
-                                        color: "#8b0000",
-                                        border: "1px dashed #8b0000",
-                                        padding: "8px",
-                                        fontFamily: "'Libre Baskerville', Georgia, serif",
-                                        fontSize: "13px",
-                                        letterSpacing: "0.1em",
-                                        textTransform: "uppercase",
-                                        cursor: "pointer",
-                                        width: "100%",
-                                    }}
-                                >
-                                    [DEV] Load Dummy Result
-                                </button>
                                 <button type="submit" disabled={!canSubmit}
                                     style={{
                                         background: canSubmit ? "#1c1c1c" : "rgba(28,28,28,0.12)",
