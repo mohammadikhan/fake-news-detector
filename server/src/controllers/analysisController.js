@@ -51,7 +51,7 @@ export const analyze = async(req, res) => {
     
     } catch (err) {
         console.log(err);
-        res.status(500).json({error: "[ERROR]: Analysis could not be performed"});
+        res.status(500).json({message: "[ERROR]: Analysis could not be performed"});
     }
 
 };
