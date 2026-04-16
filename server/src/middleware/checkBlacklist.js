@@ -21,7 +21,7 @@ const checkBlacklist = async(req, res, next) => {
     
     } catch (error) {
         console.error("[ERROR]: There was an error in checking blacklist: ", error);
-        res.status(500).json({message: "[ERROR]: Server error during token validation."});
+        return res.status(500).json({message: "[ERROR]: Server error during token validation."});
     }
 
 };
