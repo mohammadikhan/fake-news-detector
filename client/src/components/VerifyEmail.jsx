@@ -49,7 +49,7 @@ const VerifyEmail = () => {
         } catch (err) {
             setError(err.response?.data?.error || "[ERROR]: Failed to resend verification code. Please try again.") 
         } finally {
-            setResendLoading()
+            setResendLoading(false)
         }
     }
 
