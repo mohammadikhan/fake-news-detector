@@ -55,7 +55,6 @@ const AuthLayout = ({children}) => {
         </div>
         <div className="w-full md:w-1/2 flex items-center justify-center p-6">
             {children}
-            test
         </div>
     </div>
     )
