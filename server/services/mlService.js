@@ -18,6 +18,6 @@ export async function analyzeText({
     
     } catch (error) {
         console.error("[ERROR]: ML Service Error: ", error.response?.data || error.message);
-        throw new error("[ML-SERVICE-FAILED]: The ML Service failed");
+        throw new Error("[ML-SERVICE-FAILED]: The ML Service failed");
     }
 }
