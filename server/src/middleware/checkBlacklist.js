@@ -10,7 +10,7 @@ const checkBlacklist = async(req, res, next) => {
     }
 
     try {
-        const blacklisted = await BlacklistToken.findOne({accessToken});
+        const blacklisted = await BlacklistToken.findOne({token: accessToken});
 
         // Token is blacklisted
         if (blacklisted) {
