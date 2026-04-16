@@ -2,11 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/axios";
 import AuthLayout from "./ui/AuthLayout";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
 
     const [form, setForm] = useState({email: "", passwordHash: ""});
     const [error, setError] = useState("");
+    const {setUser} = useAuth();
     const navigate = useNavigate();
 
     const handleChange = (e) => setForm({...form, [e.target.name]: e.target.value});
@@ -15,7 +17,8 @@ const Login = () => {
         setError("");
 
         try {
-            await API.post("/auth/login", form);
+            const res = await API.post("/auth/login", form);
+            setUser(res.data.user);
             navigate("/");
         } catch (err) {
             const data = err.response?.data;
@@ -64,7 +67,7 @@ const Login = () => {
                                 background: "rgba(139, 0, 0, 0.06)",
                                 border: "1px solid #8b0000",
                                 fontFamily: "'Libre Baskerville', Georgia, serif",
-                                fontSize: "13px",
+                                fontSize: "14px",
                                 padding: "10px 14px",
                                 marginBottom: "20px",
                             }}>
@@ -74,7 +77,7 @@ const Login = () => {
 
                         <form onSubmit={handleSubmit} style={{display: "flex", flexDirection: "column", gap: "16px"}}>
                             <div>
-                                <label style={{display: "block", fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase", color: "#000000", marginBottom: "6px"}}>
+                                <label style={{display: "block", fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", letterSpacing: "0.1em", textTransform: "uppercase", color: "#000000", marginBottom: "6px"}}>
                                     E-Mail
                                 </label>
 
@@ -92,7 +95,7 @@ const Login = () => {
                                         border: "1px solid #1c1c1c",
                                         color: "#1c1c1c",
                                         fontFamily: "'Libre Baskerville', Georgia, serif",
-                                        fontSize: "14px",
+                                        fontSize: "15px",
                                         outline: "none",
                                         width: "100%",
                                         padding: "10px 10px"
@@ -100,7 +103,7 @@ const Login = () => {
                                 />
                             </div>
                             <div>
-                                <label style={{display: "block", fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase", color: "#000000", marginBottom: "6px"}}>
+                                <label style={{display: "block", fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", letterSpacing: "0.1em", textTransform: "uppercase", color: "#000000", marginBottom: "6px"}}>
                                     Password
                                 </label>
                                 <input
@@ -117,7 +120,7 @@ const Login = () => {
                                         border: "1px solid #1c1c1c",
                                         color: "#1c1c1c",
                                         fontFamily: "'Libre Baskerville', Georgia, serif",
-                                        fontSize: "14px",
+                                        fontSize: "15px",
                                         outline: "none",
                                         width: "100%",
                                         padding: "10px 10px"
@@ -136,7 +139,7 @@ const Login = () => {
                                     border: "1px solid #1c1c1c",
                                     padding: "12px",
                                     fontFamily: "'Libre Baskerville', Georgia, serif",
-                                    fontSize: "12px",
+                                    fontSize: "14px",
                                     letterSpacing: "0.12em",
                                     textTransform: "uppercase",
                                     fontWeight: 700,
@@ -148,7 +151,7 @@ const Login = () => {
                             </button>
                         </form>
 
-                        <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "12px", color: "#000000", textAlign: "center", marginTop: "24px"}}>
+                        <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "13px", color: "#000000", textAlign: "center", marginTop: "24px"}}>
                             Don't have an Account? <br/>
                               <a href="/register" style={{color: "#8b0000", textDecoration: "underline"}}>Register</a>
                         </p>
