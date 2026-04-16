@@ -15,13 +15,13 @@ const attachAccessToken = async(req, res, next) => {
         const tokenInDB = await RefreshToken.findOne({ token: refreshToken });
 
         if (!tokenInDB) {
-            return res.status(401).json({sucess: false, message: "[ERROR]: Token is invalid or the session token has been revoked."});
+            return res.status(401).json({success: false, message: "[ERROR]: Token is invalid or the session token has been revoked."});
         }
 
         const { accessToken } = generateTokens(tokenInDB.userId.toString());
 
         req.accessToken = accessToken;
-        // req.userId = tokenInDB.userId.toString();
+        req.userId = tokenInDB.userId.toString();
 
         next();
 
