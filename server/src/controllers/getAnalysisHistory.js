@@ -14,7 +14,7 @@ export const getAnalysisHistory = async(req, res) => {
         return res.status(200).json({message: "[SUCCESS]: Retrieved analysis history for user",
             count: allAnalyses.length,
             analyses: allAnalyses.map(a => ({
-                analysisId: a.id,
+                analysisId: a._id,
                 inputText: a.inputText.slice(0, 200) + "...",
                 prediction: a.prediction,
                 confidence: a.confidence,
