@@ -10,3 +10,5 @@ yarn-error.log
 
 __pycache__
 fakeNewsModel
+server/data/liar/
+server/data/processed/
