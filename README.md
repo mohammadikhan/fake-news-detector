@@ -1,31 +1,5 @@
-# VeriNews - AI Fake News Detector
-This is an AI-powered Fake News Detector
+# VeriNews AI - AI-Powered Fake News Detector
 
-## Features
-This application allows users too:
-- Paste news articles text and analyze if they are real or fake
-- Provide feedback to the model stating if the prediction was correct or not and also having the option to add a comment
-- Allow users to view all the analyses they have performed (History section)
-- Allow users to view all feedback they submittied for all the analyses they performed (Feedback History Section)
-- A dashboard showing total number of analyses performed, feedbacks submitted, along with a correction insights section
+Welcome to the VeriNews AI Repo! VeriNews AI is an AI-powered full-stack web application that uses a fine-tuned **RoBERTA** transformer model to analyze news articles and predict whether they are real or fake with **92%** accuracy. Users are able to submit articles and have the model predict the authenticity of these articles with human-readable explanations. Additionally, users can also provide feedback on the models predictions and track their analysis and feedback history. The UI is supposed to evoke an old-school newspaper style.
 
-## Architecture and Tech Stack
-- Backend: [Node.js (Express.js)](https://nodejs.org/en), [FastAPI (Python)](https://fastapi.tiangolo.com/)
-- AI Models: [RoBERTa](https://huggingface.co/FacebookAI/roberta-base) 
-- Frontend: [React.js](https://react.dev/), [Tailwdind CSS](https://tailwindcss.com/)  
-- Databases: [MongoDB](https://www.mongodb.com/) 
-- Datasets: 
-    - [LIAR](https://www.kaggle.com/datasets/doanquanvietnamca/liar-dataset)
-    - [WELFake](https://huggingface.co/datasets/davanstrien/WELFake)
-- DevOps: 
-    - [Docker (containerization)](https://www.docker.com/) 
-    - [AWS (Deployment)](https://aws.amazon.com/)
-
-
-## Installation
-Follow the instructions below for installation:
-- To Run Application locally:
-
-
-## Usage
-- This application can be used for:
+![VeriNews Landing Page](VeriNews_LandingPage.gif)
