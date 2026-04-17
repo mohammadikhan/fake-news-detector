@@ -6,7 +6,6 @@ export const getUserFeedback = async(req, res) => {
 
         const analyses = await Analysis.find({user: req.userId, feedback: {$ne: null}});
         
-        console.log(analyses)
         return res.status(200).json({
             count: analyses.length,
             feedbacks: analyses.map(a => ({

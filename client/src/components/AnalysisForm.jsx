@@ -86,7 +86,7 @@ const AnalysisForm = () => {
                                     />
                                 </div>
                                 {/* Add Optional AI Explainability Toggle */}
-                                <label className="flex items-center gap-3 cursor pointer select-none">
+                                <label className="flex items-center gap-3 cursor-pointer select-none">
                                     <div className="relative">
                                         <input
                                             type="checkbox"
