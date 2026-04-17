@@ -44,9 +44,10 @@ const AnalysisForm = () => {
                         <h1 style={{fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: "clamp(28px, 4vw, 44px)", color: "#1c1c1c", lineHeight: 1.1}}>
                             Submit an Article, Get the <em style={{color: "#8b0000"}}>Truth</em>
                         </h1>
-                        <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "14px", color: "#7a7570", marginTop: "8px"}}>
+                        <p style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "14px", color: "#000000", marginTop: "8px"}}>
                             {result ? "Analysis results will appear to the right." : "Minimum 250 words. Analysis results will appear to the right."}
                         </p>
+                        <p style={{fontSize: "14px", color: "#000000"}}>NOTE: Performing an Analysis can take up to 5 minutes. Please be patient.</p>
                     </div>
 
                     <div className={`grid gap-8 items-start ${result ? "grid-cols-1 lg:grid-cols-2" : "max-w-2xl mx-auto"}`}>
@@ -106,14 +107,14 @@ const AnalysisForm = () => {
                                                 top: "2px",
                                                 left: includeAIExplanation ? "20px" : "2px",
                                                 width: "16px", height: "16px",
-                                                background: "#e8e0cc",
+                                                background: "#ffffff",
                                                 transition: "left 0.15s",
                                             }}/>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-1.5">
                                         <Lightbulb className="w-4 h-4" style={{color: includeAIExplanation ? "#1c1c1c" : "#7a7570"}}/>
-                                        <span style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "14px", color: includeAIExplanation ? "#4a4440" : "#7a7570"}}>
+                                        <span style={{fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: "14px", color: includeAIExplanation ? "#000000" : "#7a7570"}}>
                                             Include AI Explanation
                                         </span>
                                     </div>
@@ -126,7 +127,7 @@ const AnalysisForm = () => {
                                 <button type="submit" disabled={!canSubmit}
                                     style={{
                                         background: canSubmit ? "#1c1c1c" : "rgba(28,28,28,0.12)",
-                                        color: canSubmit ? "#e8e0cc" : "#7a7570",
+                                        color: canSubmit ? "#ffffff" : "#7a7570",
                                         border: `1px solid ${canSubmit ? "#1c1c1c" : "rgba(28,28,28,0.2)"}`,
                                         padding: "14px",
                                         fontFamily: "'Libre Baskerville', Georgia, serif",
