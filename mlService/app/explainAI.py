@@ -219,55 +219,6 @@ def analyze(text: str, numFeatures: int = DEFAULT_FEATURES, numSamples: int = MA
     predictionLabel = "REAL" if actualPredicion == 1 else "FAKE"
     confidence = actualProbability[actualPredicion]
     
-    exp = limeExplainer.explain_instance(
-        text,
-        predictProbabilities,
-        num_features=numFeatures,
-        num_samples=numSamples,
-        labels=(0, 1)
-    )
-
-    features = exp.as_list(label=actualPredicion)
-    fakeIndicators = []
-    realIndicators = []
-
-    for word, weight in features:
-
-        word = str(word)
-
-        if not validToken(word):
-            continue
-
-        feature = {
-            'word': word,
-            'weight': float(abs(weight))
-        }
-
-        if actualPredicion == 0:
-            if weight > 0:
-                fakeIndicators.append(feature)
-            else:
-                realIndicators.append(feature)
-        else:
-            if weight > 0:
-                realIndicators.append(feature)
-            else:
-                fakeIndicators.append(feature)
-    
-    fakeIndicators = sorted(fakeIndicators, key=lambda x: x['weight'], reverse=True)
-    realIndicators = sorted(realIndicators, key=lambda x: x['weight'], reverse=True)
-
-    # topIndicators = fakeIndicators if actualPredicion == 0 else realIndicators
-    patterns = analyzeTextPatterns(text)
-
-    humanReadableExplanation = generateHumanExplanation(
-        predictionLabel,
-        confidence,
-        realIndicators,
-        fakeIndicators,
-        patterns
-    )
-
     explanationResponse = {
         "prediction": predictionLabel,
         "confidence": confidence,
@@ -278,6 +229,54 @@ def analyze(text: str, numFeatures: int = DEFAULT_FEATURES, numSamples: int = MA
     }
 
     if includeExplanation:
+        exp = limeExplainer.explain_instance(
+            text,
+            predictProbabilities,
+            num_features=numFeatures,
+            num_samples=numSamples,
+            labels=(0, 1)
+        )
+
+        features = exp.as_list(label=actualPredicion)
+        fakeIndicators = []
+        realIndicators = []
+
+        for word, weight in features:
+
+            word = str(word)
+
+            if not validToken(word):
+                continue
+
+            feature = {
+                'word': word,
+                'weight': float(abs(weight))
+            }
+
+            if actualPredicion == 0:
+                if weight > 0:
+                    fakeIndicators.append(feature)
+                else:
+                    realIndicators.append(feature)
+            else:
+                if weight > 0:
+                    realIndicators.append(feature)
+                else:
+                    fakeIndicators.append(feature)
+
+        fakeIndicators = sorted(fakeIndicators, key=lambda x: x['weight'], reverse=True)
+        realIndicators = sorted(realIndicators, key=lambda x: x['weight'], reverse=True)
+
+        patterns = analyzeTextPatterns(text)
+
+        humanReadableExplanation = generateHumanExplanation(
+            predictionLabel,
+            confidence,
+            realIndicators,
+            fakeIndicators,
+            patterns
+        )
+
         explanationResponse["explainability"] = {
             "topFakeIndicators": [fake["word"] for fake in fakeIndicators[:5]],
             "topRealIndicators": [real["word"] for real in realIndicators[:5]],
