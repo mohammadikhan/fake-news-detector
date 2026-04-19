@@ -4,8 +4,6 @@ Welcome to the VeriNews AI Repo! VeriNews AI is an AI-powered full-stack web app
 
 ![VeriNews Landing Page](VeriNews_LandingPage.gif)
 
----
-
 ## Features
 - **Article Analysis**: Users can paste any news article (minimum 250 words) and receive a real/fake prediction with a confidence score on a scale of 0-100
 - **Optional AI-Explainability**: Users have the option to get a human readable explanation along with the top indicating words for why the model made its prediction
@@ -14,11 +12,7 @@ Welcome to the VeriNews AI Repo! VeriNews AI is an AI-powered full-stack web app
 - **Analysis History**: Users can view all their past analyes performed
 - **Feedback History**: Users can view all feedback they have submitted across their analyses
 
----
-
-##
-
-Tech Stack
+## Tech Stack
 
 **Frontend**
 - [React 19](https://react.dev/) + [Vite](https://vite.dev/)
@@ -45,7 +39,7 @@ Tech Stack
 - [LIAR](https://www.kaggle.com/datasets/doanquanvietnamca/liar-dataset?select=README)
 - [WELFake](https://huggingface.co/datasets/davanstrien/WELFake)
 
----
+## Project Directory Structure
 
 ```
 fake-news-detector/
@@ -79,9 +73,6 @@ fake-news-detector/
     │   └── cleanData.py     # Data Preprocessing Script
     └── requirements.txt
 ```
-
----
-
 ## Local Setup Instructions
 
 ### Prerequisites:
@@ -178,8 +169,6 @@ The app will be up and running at `http://localhost:5173`
 | `CORS_ORIGIN` | server/.env | Allowed frontend origin for CORS |
 | `NODE_ENV` | server/.env | `development` or `production` |
 | `VITE_API_URL` | client/.env | Backend API base URL |
-
----
 
 ## Model
 
