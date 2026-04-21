@@ -165,7 +165,7 @@ The app will be up and running at `http://localhost:5173`
 | `JWT_REFRESH_EXPIRE` | server/.env | Refresh token expiry (e.g. `7d`) |
 | `USER_EMAIL` | server/.env | Gmail address for sending verification emails |
 | `PASS_EMAIL` | server/.env | Gmail App Password |
-| `ML_SERVICE_URL` | server/.env | URL of the Python ML service |
+| `ML_SERVICE_URL` | server/.env | ML microservice URL |
 | `CORS_ORIGIN` | server/.env | Allowed frontend origin for CORS |
 | `NODE_ENV` | server/.env | `development` or `production` |
 | `VITE_API_URL` | client/.env | Backend API base URL |
